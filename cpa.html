@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MODDED GAMES</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f5faff;
+      color: #222;
+      padding-top: 50px;
+    }
+
+    nav.main-nav {
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      flex-wrap: wrap;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      box-sizing: border-box;
+      z-index: 1000;
+    }
+
+    .main-nav .logo h1 {
+      font-size: 1.3rem;
+      color: #000000;
+      margin: 0;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .main-nav.active .nav-links {
+        display: flex;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+        color: #333;
+      }
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 10px;
+      background: linear-gradient(135deg, #0ab999, #06a687);
+      color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(10, 185, 153, 0.4);
+      margin: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.8px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      max-width: 440px;
+      margin: 0 auto 20px;
+      font-weight: 600;
+      line-height: 1.4;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding: 20px 10px;
+      margin-top: 0;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    .search-container input {
+      width: 100%;
+      max-width: 400px;
+      padding: 14px 17px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      outline: none;
+      transition: box-shadow 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .search-container input:focus {
+      box-shadow: 0 6px 10px rgba(10, 185, 153, 0.6);
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 30px 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      width: 180px;
+      padding: 16px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: 0.2s ease-in-out;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .card img {
+      width: 100%;
+      height: 55%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .card h3 {
+      margin: 12px 0 4px;
+      font-size: 1rem;
+      color: #111;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .card .mod-desc {
+      font-size: 0.75rem;
+      color: #777;
+      margin-bottom: 12px;
+      height: 40px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .install-btn {
+      background-color: #10d2a2;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .install-btn i {
+      margin-right: 6px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #eaf7f7;
+      color: #444;
+      font-size: 14px;
+    }
+
+    @media screen and (max-width: 600px) {
+      .card {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .search-container input {
+        max-width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="main-nav" aria-label="Main Navigation">
+    <div class="logo">
+      <h1>Game Mods Hub</h1>
+    </div>
+
+    <div class="mobile-menu-toggle" aria-label="Toggle mobile menu" role="button" tabindex="0">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="nav-links">
+      <a href="#" aria-label="Home"><i class="fas fa-home"></i> Home</a>
+      <a href="#" aria-label="Categories"><i class="fas fa-folder"></i> Categories</a>
+      <a href="#" aria-label="Trending"><i class="fas fa-fire"></i> Trending</a>
+      <a href="#" aria-label="About"><i class="fas fa-info-circle"></i> About</a>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Welcome to Modded Games</h1>
+    <p>Download premium mods with all features unlocked</p>
+  </header>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search games..." />
+  </div>
+
+  <div class="grid" id="appsGrid">
+    <div class="card" data-name="Call of Duty: Warzone Mobile">
+      <img src="https://i.postimg.cc/VkXVQvjP/OIP.jpg" alt="Warzone Mobile" />
+      <h3>Call of Duty: Warzone</h3>
+      <p>FPS • Mobile MOD APK</p>
+      <p class="mod-desc">All skins, no ads, and enhanced mobility</p>
+      <a href="https://installchecker.com/cl/i/e6vdod" class="install-btn"><i class="fas fa-download"></i>Download</a>
+    </div>
+
+    <div class="card" data-name="Grand Theft Auto V">
+      <img src="https://i.postimg.cc/BQZmrBJT/gta.jpg" alt="Grand Theft Auto V" />
+      <h3>Grand Theft Auto V</h3>
+      <p>Action • MOD APK</p>
+      <p class="mod-desc">Unlimited money and all unlockables</p>
+      <a href="https://installchecker.com/cl/i/nd8xjv" class="install-btn"><i class="fas fa-download"></i>Download</a>
+    </div>
+
+    <div class="card" data-name="Last War: Survival">
+      <img src="https://i.postimg.cc/C1ht40nT/last.png" alt="Last War Survival" />
+      <h3>Last War: Survival</h3>
+      <p>Zombies • MOD APK</p>
+      <p class="mod-desc">Unlimited ammo and health boosts</p>
+      <a href="https://installchecker.com/cl/i/g6pe9r" class="install-btn"><i class="fas fa-download"></i>Download</a>
+    </div>
+
+    <div class="card" data-name="Roblox">
+      <img src="https://i.postimg.cc/Gt95ZjjX/roblox.jpg" alt="Roblox" />
+      <h3>Roblox</h3>
+      <p>Multiverse • MOD APK</p>
+      <p class="mod-desc">Access all games and premium items</p>
+      <a href="https://installchecker.com/cl/i/pod753" class="install-btn"><i class="fas fa-download"></i>Download</a>
+    </div>
+
+    <div class="card" data-name="Minecraft">
+      <img src="https://i.postimg.cc/ZKGMMpvL/mc.png" alt="Minecraft" />
+      <h3>Minecraft</h3>
+      <p>Sandbox • MOD APK</p>
+      <p class="mod-desc">Unlimited resources and unlocked skins</p>
+      <a href="https://installchecker.com/cl/i/5kq1gw" class="install-btn"><i class="fas fa-download"></i>Download</a>
+    </div>
+
+    <div class="card" data-name="Battle Gang">
+      <img src="https://i.postimg.cc/BvDxRXk9/battle.png" alt="Battle Gang" />
+      <h3>Battle Gang</h3>
+      <p>Funny • MOD APK</p>
+      <p class="mod-desc">Unlimited resources and epic gang battles</p>
+      <a href="https://installchecker.com/cl/i/1oe7gp" class="install-btn"><i class="fas fa-download"></i>Download</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 MOD GAMES. All rights reserved.
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const cards = document.querySelectorAll(".card");
+
+    searchInput.addEventListener("input", () => {
+      const value = searchInput.value.toLowerCase();
+      cards.forEach(card => {
+        const name = card.getAttribute("data-name").toLowerCase();
+        card.style.display = name.includes(value) ? "block" : "none";
+      });
+    });
+
+    document.querySelector('.mobile-menu-toggle').addEventListener('click', () => {
+      document.querySelector('.main-nav').classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>
