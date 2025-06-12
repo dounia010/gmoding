@@ -1,322 +1,524 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MODDED GAMES</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="icon" type="image/png" href="https://i.postimg.cc/8kf0Y9Gq/icon.png">
-  <style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>GameZone, realm of mod</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="icon" href="https://i.imgur.com/0KQSWYV.jpg" type="image/jpeg">
+
+<style>
+    :root {
+        --color-bg: #f4f7fc;
+        --color-surface: #ffffff;
+        --color-nav-bg: rgba(255, 255, 255, 0.8);
+        --color-search-bg: #eef2f9;
+        --color-text-primary: #1a202c;
+        --color-text-secondary: #4a5568;
+        --color-border: #e2e8f0;
+        
+        /* -- NEW VIBRANT COLORS -- */
+        --gradient-accent: linear-gradient(135deg, #10eec6, #00b4d8);
+        --color-accent-primary: #10eec6;
+        --color-accent-primary-darker: #00b4d8;
+        --color-shadow: rgba(45, 55, 72, 0.1);
+        --color-shadow-focus: rgba(16, 238, 198, 0.4); /* Updated to match new accent */
+        
+        --font-primary: 'Inter', sans-serif;
+        --spacing-unit: 8px;
+        --border-radius: 12px;
+        --transition-speed: 0.3s;
+        --transition-speed-fast: 0.2s;
+    }
+
+    [data-theme="dark"] {
+        --color-bg: #0F111A;
+        --color-surface: #1E2129;
+        --color-nav-bg: #1E2129;
+        --color-search-bg: #2d3748;
+        --color-text-primary: #edf2f7;
+        --color-text-secondary: #a0aec0;
+        --color-border: #4a5568;
+        --color-shadow: rgba(0, 0, 0, 0.25);
+        --color-shadow-focus: rgba(16, 238, 198, 0.3); /* Updated for dark theme */
+    }
+
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* --- FIX WAS APPLIED HERE --- */
     body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #f5faff;
-      color: #222;
-      padding-top: 50px;
-    }
-
-    nav.main-nav {
-      background-color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      flex-wrap: wrap;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      box-sizing: border-box;
-      z-index: 1000;
-    }
-
-    .main-nav .logo h1 {
-      font-size: 1.3rem;
-      color: #000000;
-      margin: 0;
-    }
-
-    .mobile-menu-toggle {
-      display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    @media screen and (max-width: 768px) {
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        margin-top: 10px;
-      }
-
-      .main-nav.active .nav-links {
+        font-family: var(--font-primary);
+        background-color: var(--color-bg);
+        color: var(--color-text-primary);
+        line-height: 1.6;
+        transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        
+        /* This is the main fix for centering the entire page content */
         display: flex;
-      }
-
-      .mobile-menu-toggle {
-        display: block;
-        color: #333;
-      }
+        flex-direction: column;
+        align-items: center;   /* Horizontally centers children */
+        min-height: 100vh;     /* Ensures body fills the screen height */
     }
 
-    header {
-      text-align: center;
-      padding: 20px 10px;
-      background: linear-gradient(135deg, #0ab999, #06a687);
-      color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(10, 185, 153, 0.4);
-      margin: 5px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: 0.8px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-
-    header p {
-      font-size: 1.2rem;
-      max-width: 440px;
-      margin: 0 auto 20px;
-      font-weight: 600;
-      line-height: 1.4;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    }
-
-    .search-container {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      padding: 20px 10px;
-      margin-top: 0;
-      margin-bottom: 10px;
-      box-sizing: border-box;
-    }
-
-    .search-container input {
-      width: 100%;
-      max-width: 400px;
-      padding: 14px 17px;
-      font-size: 1.1rem;
-      border-radius: 30px;
-      border: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      outline: none;
-      transition: box-shadow 0.3s ease;
-      box-sizing: border-box;
-    }
-
-    .search-container input:focus {
-      box-shadow: 0 6px 10px rgba(10, 185, 153, 0.6);
-    }
-
-    .grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      padding: 30px 20px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 12px;
-      width: 180px;
-      padding: 16px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      text-align: center;
-      transition: 0.2s ease-in-out;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-
-    .card img {
-      width: 100%;
-      height: 55%;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    .card h3 {
-      margin: 12px 0 4px;
-      font-size: 1rem;
-      color: #111;
-    }
-
-    .card p {
-      font-size: 0.85rem;
-      color: #555;
-      margin-bottom: 12px;
-    }
-
-    .card .mod-desc {
-      font-size: 0.75rem;
-      color: #777;
-      margin-bottom: 12px;
-      height: 40px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .install-btn {
-      background-color: #10d2a2;
-      color: white;
-      padding: 8px 12px;
-      border: none;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      display: inline-block;
-    }
-
-    .install-btn i {
-      margin-right: 6px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 15px;
-      background-color: #eaf7f7;
-      color: #444;
-      font-size: 14px;
-    }
-
-    @media screen and (max-width: 600px) {
-      .card {
+    /* --- NEW RULE ADDED HERE --- */
+    main {
         width: 100%;
-        max-width: 320px;
-      }
-
-      .search-container input {
-        max-width: 90%;
-      }
+        max-width: 1200px; /* Optional: keeps content from being too wide */
+        /* This moves the padding for the nav bar from the body to the main content */
+        padding-top: calc(var(--spacing-unit) * 10);
     }
-  </style>
+    
+    /* NAVIGATION */
+    .main-nav {
+        background-color: var(--color-nav-bg);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--spacing-unit) * 1.5);
+    }
+
+    .logo-icon {
+        font-size: 30px;
+        color: var(--color-accent-primary);
+    }
+
+    .logo-container .logo-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-text-primary);
+        transition: color var(--transition-speed) ease;
+    }
+    
+    /* SEARCH BAR & RESULTS */
+    .nav-search-container {
+        flex-grow: 1;
+        margin: 0 calc(var(--spacing-unit) * 4);
+        max-width: 600px;
+        position: relative;
+    }
+
+    .nav-search-container .search-icon {
+        position: absolute;
+        top: 50%;
+        left: calc(var(--spacing-unit) * 2);
+        transform: translateY(-50%);
+        color: var(--color-text-secondary);
+        z-index: 1;
+    }
+
+    .nav-search-container input {
+        width: 100%;
+        padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 9) calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 5);
+        font-size: 1rem;
+        border-radius: 50px;
+        border: 1px solid transparent;
+        background-color: var(--color-search-bg);
+        color: var(--color-text-primary);
+        outline: none;
+        transition: all var(--transition-speed) ease;
+    }
+
+    .nav-search-container input:focus {
+        box-shadow: 0 0 0 3px var(--color-shadow-focus);
+        background-color: var(--color-surface);
+        border-color: var(--color-accent-primary);
+    }
+    
+    .search-clear-btn {
+        position: absolute;
+        top: 50%;
+        right: calc(var(--spacing-unit) * 1.5);
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        padding: var(--spacing-unit);
+        line-height: 0;
+        display: none; /* Hidden by default */
+    }
+    
+    .nav-search-container.search-active .search-clear-btn {
+        display: block;
+    }
+
+    .search-results-container {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease, visibility var(--transition-speed-fast);
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        width: 100%;
+        background-color: var(--color-surface);
+        border-radius: var(--border-radius);
+        box-shadow: 0 8px 30px var(--color-shadow);
+        border: 1px solid var(--color-border);
+        max-height: 400px;
+        overflow-y: auto;
+        z-index: 1100;
+    }
+    
+    .search-results-container.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    /* ENHANCEMENT: Custom Scrollbar */
+    .search-results-container::-webkit-scrollbar {
+        width: 8px;
+    }
+    .search-results-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .search-results-container::-webkit-scrollbar-thumb {
+        background: var(--color-border);
+        border-radius: 10px;
+    }
+    .search-results-container::-webkit-scrollbar-thumb:hover {
+        background: var(--color-text-secondary);
+    }
+
+    a.search-result-item {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--spacing-unit) * 2);
+        padding: var(--spacing-unit);
+        cursor: pointer;
+        border-bottom: 1px solid var(--color-border);
+        text-decoration: none;
+        transition: background-color var(--transition-speed-fast) ease;
+    }
+    a.search-result-item:last-child { border-bottom: none; }
+    a.search-result-item:hover { background-color: var(--color-search-bg); }
+    .search-result-item img {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+    .search-result-info h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0;
+        color: var(--color-text-primary);
+    }
+    .search-result-info p {
+        font-size: 0.85rem;
+        color: var(--color-text-secondary);
+        margin: 0;
+    }
+    .no-results-message {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-unit);
+        padding: calc(var(--spacing-unit) * 4);
+        color: var(--color-text-secondary);
+        text-align: center;
+    }
+    .no-results-message i { font-size: 1.5rem; margin-bottom: var(--spacing-unit); }
+
+    /* THEME TOGGLE */
+    .settings-button {
+        background: none; border: none; color: var(--color-text-secondary); cursor: pointer;
+        font-size: 1.5rem; padding: var(--spacing-unit); border-radius: 50%; display: flex;
+        transition: color var(--transition-speed) ease, background-color var(--transition-speed) ease;
+    }
+    .settings-button:hover {
+        color: var(--color-text-primary);
+        background-color: var(--color-search-bg);
+    }
+    #theme-icon { transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+    
+    /* ENHANCEMENT: FEATURED HEADER */
+    .featured-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 3);
+        margin: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 2);
+        border-left: 5px solid var(--color-accent-primary);
+        background: linear-gradient(90deg, var(--color-surface) 0%, var(--color-search-bg) 100%);
+        border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    }
+    .featured-header h2 { font-size: 1.8rem; font-weight: 700; }
+    .view-all-btn {
+        background: none; color: var(--color-accent-primary); text-decoration: none; font-weight: 600;
+        display: flex; align-items: center; gap: var(--spacing-unit); transition: color var(--transition-speed) ease;
+    }
+    .view-all-btn:hover { color: var(--color-accent-primary-darker); }
+    .view-all-btn i { transition: transform var(--transition-speed-fast) ease; }
+    .view-all-btn:hover i { transform: translateX(4px); }
+
+    /* CARDS GRID */
+    /* --- FIX APPLIED HERE --- */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: calc(var(--spacing-unit) * 3);
+        padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 3);
+        /* This centers the cards if the last row isn't full */
+        justify-content: center; 
+    }
+    .card {
+        background: var(--color-surface);
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 12px var(--color-shadow);
+        text-align: center;
+        padding: calc(var(--spacing-unit) * 2);
+        transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        display: flex;  
+        flex-direction: column;
+    }
+    /* ENHANCEMENT: Card hover glow */
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px var(--color-shadow), 0 0 15px var(--color-shadow-focus);
+    }
+    .card img {
+        width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+        border-radius: calc(var(--border-radius) - 4px);
+        margin-bottom: calc(var(--spacing-unit) * 1.5);
+    }
+    .card h3 { margin: 0; font-size: 1.1rem; color: var(--color-text-primary); font-weight: 600; }
+    .card p { font-size: 0.9rem; color: var(--color-text-secondary); margin-block: calc(var(--spacing-unit) * 0.5); }
+    .card .mod-desc { font-size: 0.8rem; height: 3em; line-height: 1.5em; flex-grow: 1; overflow: hidden; margin-bottom: calc(var(--spacing-unit) * 1.5); }
+    .install-btn {
+        background: var(--gradient-accent); /* Applied gradient */
+        color: white;  
+        padding: calc(var(--spacing-unit) * 1.25) calc(var(--spacing-unit) * 2);
+        border: none;  
+        border-radius: calc(var(--border-radius) / 1.5);  
+        text-decoration: none;  
+        font-weight: 600;
+        display: inline-block;  
+        transition: all var(--transition-speed-fast) ease;
+    }
+    .install-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px var(--color-shadow-focus);
+        filter: brightness(1.1); /* Brighter effect on hover */
+    }
+    .install-btn i { margin-right: var(--spacing-unit); }
+
+    footer { text-align: center; padding: calc(var(--spacing-unit) * 3); margin-top: calc(var(--spacing-unit) * 4); background-color: var(--color-surface); color: var(--color-text-secondary); font-size: 0.9rem; border-top: 1px solid var(--color-border);    width: 100%; 
+;    }
+
+    /* RESPONSIVE */
+    @media screen and (max-width: 768px) {
+        .nav-search-container { margin: 0 calc(var(--spacing-unit) * 2); }
+    }
+    @media screen and (max-width: 480px) {
+        .logo-container .logo-text { display: none; }
+        .featured-header h2 { font-size: 1.4rem; }
+        .view-all-btn { font-size: 0.9rem; }
+        .logo-icon { font-size: 28px; }
+        .settings-button { font-size: 1.3rem; }
+    }
+</style>
 </head>
 <body>
 
-  <nav class="main-nav" aria-label="Main Navigation">
-    <div class="logo">
-      <h1>Game Mods Hub</h1>
-    </div>
+    <nav class="main-nav" aria-label="Main Navigation">
+        <div class="logo-container">
+            <i class="fas fa-gamepad logo-icon"></i>
+            <span class="logo-text">GameZone</span>
+        </div>
+        <div id="searchContainer" class="nav-search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search games..." autocomplete="off" />
+            <button id="searchClearBtn" class="search-clear-btn">&times;</button>
+            <div id="searchResults" class="search-results-container"></div>
+        </div>
+        <button class="settings-button" id="theme-toggle" aria-label="Toggle theme">
+            <i id="theme-icon" class="fas fa-moon"></i>
+        </button>
+    </nav>
 
-    <div class="mobile-menu-toggle" aria-label="Toggle mobile menu" role="button" tabindex="0">
-      <i class="fas fa-bars"></i>
-    </div>
+    <main id="mainContent">
+        <div class="featured-header">
+            <h2>Featured Games</h2>
+            <a href="#" class="view-all-btn">
+                View All <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="grid" id="appsGrid">
 
-    <div class="nav-links">
-      <a href="#" aria-label="Home"><i class="fas fa-home"></i> Home</a>
-      <a href="#" aria-label="Categories"><i class="fas fa-folder"></i> Categories</a>
-      <a href="#" aria-label="Trending"><i class="fas fa-fire"></i> Trending</a>
-      <a href="#" aria-label="About"><i class="fas fa-info-circle"></i> About</a>
-    </div>
-  </nav>
+            <div class="card" data-name="Stick War 3" data-category="Strategy">
+                <img src="https://i.postimg.cc/x8DD2vJ4/stick.png" alt="Stick War 3" />
+                <h3>Stick War 3</h3>
+                <p>Strategy • MOD APK</p>
+                <p class="mod-desc">Unlimited gems, all units unlocked</p>
+                <a href="https://installchecker.com/cl/i/5k9o61" class="install-btn"><i class="fas fa-download"></i>Download</a>
+            </div>
+            <div class="card" data-name="Last War: Survival" data-category="Zombies">
+                <img src="https://i.postimg.cc/C1ht40nT/last.png" alt="Last War Survival" />
+                <h3>Last War: Survival</h3>
+                <p>Zombies • MOD APK</p>
+                <p class="mod-desc">Unlimited ammo and health boosts</p>
+                <a href="https://installchecker.com/cl/i/g6pe9r" class="install-btn"><i class="fas fa-download"></i>Download</a>
+            </div>
+            <div class="card" data-name="Roblox" data-category="Multiverse">
+                <img src="https://i.postimg.cc/Gt95ZjjX/roblox.jpg" alt="Roblox" />
+                <h3>Roblox</h3>
+                <p>Multiverse • MOD APK</p>
+                <p class="mod-desc">Access all games and premium items</p>
+                <a href="https://installchecker.com/cl/i/pod753" class="install-btn"><i class="fas fa-download"></i>Download</a>
+            </div>
+            <div class="card" data-name="Minecraft" data-category="Sandbox">
+                <img src="https://i.postimg.cc/ZKGMMpvL/mc.png" alt="Minecraft" />
+                <h3>Minecraft</h3>
+                <p>Sandbox • MOD APK</p>
+                <p class="mod-desc">Unlimited resources and unlocked skins</p>
+                <a href="https://installchecker.com/cl/i/5kq1gw " class="install-btn"><i class="fas fa-download"></i>Download</a>
+            </div>
+            <div class="card" data-name="Call of Duty: Warzone Mobile">
+              <img src="https://i.postimg.cc/VkXVQvjP/OIP.jpg" alt="Warzone Mobile" />
+              <h3>Call of Duty: Warzone</h3>
+              <p>FPS • Mobile MOD APK</p>
+              <p class="mod-desc">All skins, no ads, and enhanced mobility</p>
+              <a href="https://installchecker.com/cl/i/e6vdod" class="install-btn"><i class="fas fa-download"></i>Download</a>
+            </div>
+        </div>
+    </main>
 
-  <header>
-    <h1>Welcome to Modded Games</h1>
-    <p>Download premium mods with all features unlocked</p>
-  </header>
+    <footer>
+        &copy; 2025 GameZone. All rights reserved.
+    </footer>
 
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search games..." />
-  </div>
+    <script>
+        // --- THEME TOGGLE SCRIPT ---
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        const updateThemeIcon = (theme) => {
+            const isDark = theme === 'dark';
+            themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            themeIcon.style.transform = isDark ? 'rotate(90deg)' : 'rotate(0deg)';
+        };
 
-  <div class="grid" id="appsGrid">
-    <div class="card" data-name="Call of Duty: Warzone Mobile">
-      <img src="https://i.postimg.cc/VkXVQvjP/OIP.jpg" alt="Warzone Mobile" />
-      <h3>Call of Duty: Warzone</h3>
-      <p>FPS • Mobile MOD APK</p>
-      <p class="mod-desc">All skins, no ads, and enhanced mobility</p>
-      <a href="https://installchecker.com/cl/i/e6vdod" class="install-btn"><i class="fas fa-download"></i>Download</a>
-    </div>
+        const setTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            updateThemeIcon(theme);
+        };
 
-    <div class="card" data-name="Grand Theft Auto 6">
-      <img src="https://i.postimg.cc/h4yzzhfq/gta.png" alt="Grand Theft Auto 6" />
-      <h3>Grand Theft Auto 6</h3>
-      <p>Action • MOD APK</p>
-      <p class="mod-desc">Unlimited money and all unlockables</p>
-      <a href="https://installchecker.com/cl/i/nd8xjv" class="install-btn"><i class="fas fa-download"></i>Download</a>
-    </div>
+        themeToggleButton.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        });
 
-    <div class="card" data-name="Last War: Survival">
-      <img src="https://i.postimg.cc/C1ht40nT/last.png" alt="Last War Survival" />
-      <h3>Last War: Survival</h3>
-      <p>Zombies • MOD APK</p>
-      <p class="mod-desc">Unlimited ammo and health boosts</p>
-      <a href="https://installchecker.com/cl/i/g6pe9r" class="install-btn"><i class="fas fa-download"></i>Download</a>
-    </div>
+        // Initialize theme based on preference or saved state
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
 
-    <div class="card" data-name="Roblox">
-      <img src="https://i.postimg.cc/Gt95ZjjX/roblox.jpg" alt="Roblox" />
-      <h3>Roblox</h3>
-      <p>Multiverse • MOD APK</p>
-      <p class="mod-desc">Access all games and premium items</p>
-      <a href="https://installchecker.com/cl/i/pod753" class="install-btn"><i class="fas fa-download"></i>Download</a>
-    </div>
+        // --- DYNAMIC SEARCH SCRIPT ---
+        const searchContainer = document.getElementById("searchContainer");
+        const searchInput = document.getElementById("searchInput");
+        const searchClearBtn = document.getElementById("searchClearBtn");
+        const searchResultsContainer = document.getElementById("searchResults");
+        const allGameCards = document.querySelectorAll(".card");
+        let gameData = [];
 
-    <div class="card" data-name="Minecraft">
-      <img src="https://i.postimg.cc/ZKGMMpvL/mc.png" alt="Minecraft" />
-      <h3>Minecraft</h3>
-      <p>Sandbox • MOD APK</p>
-      <p class="mod-desc">Unlimited resources and unlocked skins</p>
-      <a href="https://installchecker.com/cl/i/5kq1gw" class="install-btn"><i class="fas fa-download"></i>Download</a>
-    </div>
+        // 1. Populate game data from existing HTML cards
+        allGameCards.forEach(card => {
+            gameData.push({
+                name: card.dataset.name,
+                category: card.dataset.category,
+                image: card.querySelector('img').src,
+                url: card.querySelector('.install-btn').href,
+            });
+        });
 
-    <div class="card" data-name="Battle Gang">
-      <img src="https://i.postimg.cc/BvDxRXk9/battle.png" alt="Battle Gang" />
-      <h3>Battle Gang</h3>
-      <p>Funny • MOD APK</p>
-      <p class="mod-desc">Unlimited resources and epic gang battles</p>
-      <a href="https://installchecker.com/cl/i/1oe7gp" class="install-btn"><i class="fas fa-download"></i>Download</a>
-    </div>
-  </div>
+        // 2. Handle search input
+        searchInput.addEventListener("input", (e) => {
+            const query = e.target.value.toLowerCase();
+            if (query.length > 0) {
+                searchContainer.classList.add('search-active');
+                searchResultsContainer.classList.add('active');
+                const filteredGames = gameData.filter(game => game.name.toLowerCase().includes(query));
+                displaySearchResults(filteredGames);
+            } else {
+                searchContainer.classList.remove('search-active');
+                hideSearchResults(); 
+            }
+        });
 
-  <footer>
-    &copy; 2025 MOD GAMES. All rights reserved.
-  </footer>
+        // 3. Display results in the dropdown
+        function displaySearchResults(results) {
+            if (results.length === 0) {
+                searchResultsContainer.innerHTML = `
+                    <div class="no-results-message">
+                        <i class="fas fa-frown"></i>
+                        <p>No games found.</p>
+                    </div>`;
+                return;
+            }
+            searchResultsContainer.innerHTML = results.map(game => `
+                <a href="${game.url}" class="search-result-item">
+                    <img src="${game.image}" alt="${game.name}">
+                    <div class="search-result-info">
+                        <h4>${game.name}</h4>
+                        <p>${game.category}</p>
+                    </div>
+                </a>
+            `).join('');
+        }
+        
+        // 4. Hide the search results
+        function hideSearchResults() {
+            searchResultsContainer.classList.remove('active');
+        }
 
-  <script>
-    const searchInput = document.getElementById("searchInput");
-    const cards = document.querySelectorAll(".card");
+        // 5. Handle clearing the search
+        searchClearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            searchContainer.classList.remove('search-active');
+            hideSearchResults();
+        });
 
-    searchInput.addEventListener("input", () => {
-      const value = searchInput.value.toLowerCase();
-      cards.forEach(card => {
-        const name = card.getAttribute("data-name").toLowerCase();
-        card.style.display = name.includes(value) ? "block" : "none";
-      });
-    });
-
-    document.querySelector('.mobile-menu-toggle').addEventListener('click', () => {
-      document.querySelector('.main-nav').classList.toggle('active');
-    });
-  </script>
-
+        // 6. Handle focus to show results if there's text
+        searchInput.addEventListener('focus', () => {
+             if (searchInput.value.length > 0) {
+                searchResultsContainer.classList.add('active');
+             }
+        });
+        
+        // 7. Hide results when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!searchContainer.contains(event.target)) {
+                 hideSearchResults();
+            }
+        });
+    </script>
 </body>
 </html>
