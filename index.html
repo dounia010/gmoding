@@ -4,28 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>GameZone, realm of mod</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="icon" href="https://i.imgur.com/0KQSWYV.jpg" type="image/jpeg">
+    <link rel="icon" href="https://i.imgur.com/fE6l1m2.png" type="image/png">
 
 <style>
     :root {
-        --color-bg: #f4f7fc;
-        --color-surface: #ffffff;
-        --color-nav-bg: rgba(255, 255, 255, 0.8);
+        /* -- Base Theme -- */
+        --color-bg: #e9edf5;
+        --color-surface: rgba(255, 255, 255, 0.75);
+        --color-nav-bg: rgba(255, 255, 255, 0.65);
         --color-search-bg: #eef2f9;
         --color-text-primary: #1a202c;
-        --color-text-secondary: #4a5568;
+        --color-text-secondary: #5A677B; 
         --color-border: #e2e8f0;
         
-        /* -- NEW VIBRANT COLORS -- */
-        --gradient-accent: linear-gradient(135deg, #10eec6, #00b4d8);
-        --color-accent-primary: #10eec6;
-        --color-accent-primary-darker: #00b4d8;
+        /* -- Vivid Colors & Gradient -- */
+        --gradient-accent: linear-gradient(135deg, #3672F8, #A336F8);
+        --color-accent-primary: #3672F8;
+        --color-accent-primary-darker: #2f61d1;
         --color-shadow: rgba(45, 55, 72, 0.1);
-        --color-shadow-focus: rgba(16, 238, 198, 0.4); /* Updated to match new accent */
+        --color-shadow-focus: rgba(54, 114, 248, 0.4);
         
+        /* -- Fonts -- */
         --font-primary: 'Inter', sans-serif;
+        --font-title: 'Orbitron', sans-serif;
         --spacing-unit: 8px;
         --border-radius: 12px;
         --transition-speed: 0.3s;
@@ -33,15 +39,15 @@
     }
 
     [data-theme="dark"] {
-        --color-bg: #0F111A;
-        --color-surface: #1E2129;
-        --color-nav-bg: #1E2129;
+        --color-bg: #0A0C12;
+        --color-surface: rgba(30, 33, 41, 0.7);
+        --color-nav-bg: rgba(30, 33, 41, 0.6);
         --color-search-bg: #2d3748;
         --color-text-primary: #edf2f7;
-        --color-text-secondary: #a0aec0;
+        --color-text-secondary: #94a3b8;
         --color-border: #4a5568;
         --color-shadow: rgba(0, 0, 0, 0.25);
-        --color-shadow-focus: rgba(16, 238, 198, 0.3); /* Updated for dark theme */
+        --color-shadow-focus: rgba(54, 114, 248, 0.3); 
     }
 
     *, *::before, *::after {
@@ -54,222 +60,170 @@
         scroll-behavior: smooth;
     }
 
-    /* --- FIX WAS APPLIED HERE --- */
     body {
         font-family: var(--font-primary);
         background-color: var(--color-bg);
         color: var(--color-text-primary);
         line-height: 1.6;
         transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-        
-        /* This is the main fix for centering the entire page content */
         display: flex;
         flex-direction: column;
-        align-items: center;   /* Horizontally centers children */
-        min-height: 100vh;     /* Ensures body fills the screen height */
+        align-items: center;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
     }
 
-    /* --- NEW RULE ADDED HERE --- */
-    main {
-        width: 100%;
-        max-width: 1200px; /* Optional: keeps content from being too wide */
-        /* This moves the padding for the nav bar from the body to the main content */
-        padding-top: calc(var(--spacing-unit) * 10);
+    /* DYNAMIC AURORA BACKGROUND */
+    .background-aurora {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        z-index: -1; overflow: hidden;
     }
+    .aurora-shape {
+        position: absolute; border-radius: 50%;
+        filter: blur(120px); will-change: transform;
+    }
+    .shape1 {
+        width: 500px; height: 500px; top: -150px; left: -150px;
+        background-color: var(--color-accent-primary);
+        opacity: 0.3; animation: drift 25s infinite alternate ease-in-out;
+    }
+    .shape2 {
+        width: 450px; height: 450px; bottom: -200px; right: -100px;
+        background-color: #A336F8; opacity: 0.4;
+        animation: drift 30s infinite alternate-reverse ease-in-out;
+    }
+    [data-theme="light"] .aurora-shape { opacity: 0.15; }
+    [data-theme="light"] .shape2 { opacity: 0.1; }
+
+    @keyframes drift {
+        0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        100% { transform: translate(100px, 80px) rotate(120deg) scale(1.3); }
+    }
+    /* --- END OF BACKGROUND STYLES --- */
+
+    main {
+        width: 100%; max-width: 1200px;
+        padding-top: calc(var(--spacing-unit) * 10);
+        z-index: 1;
+    }
+    
+    footer { z-index: 1; }
     
     /* NAVIGATION */
     .main-nav {
         background-color: var(--color-nav-bg);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+        display: flex; justify-content: space-between; align-items: center;
         padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
+        position: fixed; top: 0; left: 0; width: 100%;
         z-index: 1000;
         border-bottom: 1px solid var(--color-border);
     }
 
-    .logo-container {
-        display: flex;
-        align-items: center;
-        gap: calc(var(--spacing-unit) * 1.5);
-    }
-
-    .logo-icon {
-        font-size: 30px;
-        color: var(--color-accent-primary);
-    }
-
+    .logo-container { display: flex; align-items: center; gap: calc(var(--spacing-unit) * 1.5); }
+    .logo-icon { font-size: 30px; color: var(--color-text-primary); }
     .logo-container .logo-text {
+        font-family: var(--font-title);
         font-size: 1.5rem;
         font-weight: 700;
         color: var(--color-text-primary);
+        letter-spacing: 0.5px;
         transition: color var(--transition-speed) ease;
     }
     
     /* SEARCH BAR & RESULTS */
-    .nav-search-container {
-        flex-grow: 1;
-        margin: 0 calc(var(--spacing-unit) * 4);
-        max-width: 600px;
-        position: relative;
-    }
-
-    .nav-search-container .search-icon {
-        position: absolute;
-        top: 50%;
-        left: calc(var(--spacing-unit) * 2);
-        transform: translateY(-50%);
-        color: var(--color-text-secondary);
-        z-index: 1;
-    }
-
+    .nav-search-container { flex-grow: 1; margin: 0 calc(var(--spacing-unit) * 4); max-width: 600px; position: relative; }
+    .nav-search-container .search-icon { position: absolute; top: 50%; left: calc(var(--spacing-unit) * 2); transform: translateY(-50%); color: var(--color-text-secondary); z-index: 1; }
     .nav-search-container input {
         width: 100%;
         padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 9) calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 5);
-        font-size: 1rem;
-        border-radius: 50px;
+        font-size: 1rem; border-radius: 50px; border: 1px solid transparent; background-color: var(--color-search-bg);
+        color: var(--color-text-primary); outline: none; transition: all var(--transition-speed) ease;
+    }
+    .nav-search-container input:focus { box-shadow: 0 0 0 3px var(--color-shadow-focus); background-color: var(--color-surface); border-color: var(--color-accent-primary); }
+    .search-clear-btn {
+        position: absolute; top: 50%; right: calc(var(--spacing-unit) * 1.5); transform: translateY(-50%);
+        background: none; border: none; font-size: 1.5rem; color: var(--color-text-secondary); cursor: pointer;
+        padding: var(--spacing-unit); line-height: 0; display: none;
+    }
+    .nav-search-container.search-active .search-clear-btn { display: block; }
+    .search-results-container {
+        opacity: 0; visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease, visibility var(--transition-speed-fast);
+        position: absolute; top: calc(100% + 8px); left: 0; width: 100%;
+        background-color: var(--color-surface); border-radius: var(--border-radius);
+        box-shadow: 0 8px 30px var(--color-shadow); border: 1px solid var(--color-border);
+        max-height: 400px; overflow-y: auto; z-index: 1100;
+    }
+    .search-results-container.active { opacity: 1; visibility: visible; transform: translateY(0); }
+    .search-result-item {
+        display: flex; align-items: center; gap: calc(var(--spacing-unit) * 2); padding: calc(var(--spacing-unit) * 1.5);
+        cursor: pointer; border-bottom: 1px solid var(--color-border); text-decoration: none;
+        transition: background-color var(--transition-speed-fast) ease;
+    }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background-color: var(--color-search-bg); }
+    .search-result-item img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+    .search-result-info h4 { font-size: 0.95rem; font-weight: 600; margin: 0; color: var(--color-text-primary); }
+    .search-result-info p { font-size: 0.8rem; color: var(--color-text-secondary); margin: 0; }
+    .no-results-message { text-align: center; padding: calc(var(--spacing-unit) * 4); }
+    .no-results-message i { font-size: 1.5rem; margin-bottom: var(--spacing-unit); }
+
+    /* THEME TOGGLE BUTTON - NEW SIMPLE STYLE */
+    .settings-button {
+        background: transparent;
         border: 1px solid transparent;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all var(--transition-speed-fast) ease;
+        color: var(--color-text-secondary);
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .settings-button:hover, .settings-button:focus {
         background-color: var(--color-search-bg);
         color: var(--color-text-primary);
         outline: none;
-        transition: all var(--transition-speed) ease;
     }
 
-    .nav-search-container input:focus {
-        box-shadow: 0 0 0 3px var(--color-shadow-focus);
-        background-color: var(--color-surface);
-        border-color: var(--color-accent-primary);
-    }
-    
-    .search-clear-btn {
-        position: absolute;
-        top: 50%;
-        right: calc(var(--spacing-unit) * 1.5);
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: var(--color-text-secondary);
-        cursor: pointer;
-        padding: var(--spacing-unit);
-        line-height: 0;
-        display: none; /* Hidden by default */
-    }
-    
-    .nav-search-container.search-active .search-clear-btn {
-        display: block;
+    .settings-button #theme-icon {
+        /* Reset icon styles from the old slider */
+        position: static;
+        transform: none;
+        background-color: transparent;
+        box-shadow: none;
+        font-size: 1.2rem;
+        width: auto;
+        height: auto;
+        transition: transform 0.3s ease;
     }
 
-    .search-results-container {
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: opacity var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease, visibility var(--transition-speed-fast);
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 0;
-        width: 100%;
-        background-color: var(--color-surface);
-        border-radius: var(--border-radius);
-        box-shadow: 0 8px 30px var(--color-shadow);
-        border: 1px solid var(--color-border);
-        max-height: 400px;
-        overflow-y: auto;
-        z-index: 1100;
+    .settings-button:hover #theme-icon {
+        transform: rotate(15deg);
     }
     
-    .search-results-container.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-    
-    /* ENHANCEMENT: Custom Scrollbar */
-    .search-results-container::-webkit-scrollbar {
-        width: 8px;
-    }
-    .search-results-container::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    .search-results-container::-webkit-scrollbar-thumb {
-        background: var(--color-border);
-        border-radius: 10px;
-    }
-    .search-results-container::-webkit-scrollbar-thumb:hover {
-        background: var(--color-text-secondary);
-    }
-
-    a.search-result-item {
-        display: flex;
-        align-items: center;
-        gap: calc(var(--spacing-unit) * 2);
-        padding: var(--spacing-unit);
-        cursor: pointer;
-        border-bottom: 1px solid var(--color-border);
-        text-decoration: none;
-        transition: background-color var(--transition-speed-fast) ease;
-    }
-    a.search-result-item:last-child { border-bottom: none; }
-    a.search-result-item:hover { background-color: var(--color-search-bg); }
-    .search-result-item img {
-        width: 48px;
-        height: 48px;
-        border-radius: 8px;
-        object-fit: cover;
-    }
-    .search-result-info h4 {
-        font-size: 1rem;
-        font-weight: 600;
-        margin: 0;
-        color: var(--color-text-primary);
-    }
-    .search-result-info p {
-        font-size: 0.85rem;
-        color: var(--color-text-secondary);
-        margin: 0;
-    }
-    .no-results-message {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: var(--spacing-unit);
-        padding: calc(var(--spacing-unit) * 4);
-        color: var(--color-text-secondary);
-        text-align: center;
-    }
-    .no-results-message i { font-size: 1.5rem; margin-bottom: var(--spacing-unit); }
-
-    /* THEME TOGGLE */
-    .settings-button {
-        background: none; border: none; color: var(--color-text-secondary); cursor: pointer;
-        font-size: 1.5rem; padding: var(--spacing-unit); border-radius: 50%; display: flex;
-        transition: color var(--transition-speed) ease, background-color var(--transition-speed) ease;
-    }
-    .settings-button:hover {
-        color: var(--color-text-primary);
-        background-color: var(--color-search-bg);
-    }
-    #theme-icon { transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
-    
-    /* ENHANCEMENT: FEATURED HEADER */
+    /* FEATURED HEADER */
     .featured-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        display: flex; justify-content: space-between; align-items: center;
         padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 3);
         margin: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 2);
         border-left: 5px solid var(--color-accent-primary);
         background: linear-gradient(90deg, var(--color-surface) 0%, var(--color-search-bg) 100%);
         border-radius: 0 var(--border-radius) var(--border-radius) 0;
     }
-    .featured-header h2 { font-size: 1.8rem; font-weight: 700; }
+    .featured-header h2 {
+        font-family: var(--font-title);
+        font-size: 1.8rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
     .view-all-btn {
         background: none; color: var(--color-accent-primary); text-decoration: none; font-weight: 600;
         display: flex; align-items: center; gap: var(--spacing-unit); transition: color var(--transition-speed) ease;
@@ -279,26 +233,26 @@
     .view-all-btn:hover i { transform: translateX(4px); }
 
     /* CARDS GRID */
-    /* --- FIX APPLIED HERE --- */
     .grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: calc(var(--spacing-unit) * 3);
         padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 3);
-        /* This centers the cards if the last row isn't full */
-        justify-content: center; 
     }
+    .grid.grid-centered .card { width: 250px; margin: 0 auto; }
+    
     .card {
+        position: relative; 
         background: var(--color-surface);
+        -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+        border: 1px solid var(--color-border);
         border-radius: var(--border-radius);
         box-shadow: 0 4px 12px var(--color-shadow);
         text-align: center;
         padding: calc(var(--spacing-unit) * 2);
         transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-        display: flex;  
-        flex-direction: column;
+        display: flex; flex-direction: column;
     }
-    /* ENHANCEMENT: Card hover glow */
     .card:hover {
         transform: translateY(-8px);
         box-shadow: 0 12px 25px var(--color-shadow), 0 0 15px var(--color-shadow-focus);
@@ -308,44 +262,69 @@
         border-radius: calc(var(--border-radius) - 4px);
         margin-bottom: calc(var(--spacing-unit) * 1.5);
     }
-    .card h3 { margin: 0; font-size: 1.1rem; color: var(--color-text-primary); font-weight: 600; }
+    
+    .card h3 { 
+        margin: 0; font-family: var(--font-title);
+        font-size: 1.3rem; font-weight: 700;
+        color: var(--color-text-primary);
+        letter-spacing: 0.5px;
+    }
+
     .card p { font-size: 0.9rem; color: var(--color-text-secondary); margin-block: calc(var(--spacing-unit) * 0.5); }
     .card .mod-desc { font-size: 0.8rem; height: 3em; line-height: 1.5em; flex-grow: 1; overflow: hidden; margin-bottom: calc(var(--spacing-unit) * 1.5); }
+    
+    .card .downloads, .card .rating {
+        position: absolute; top: calc(var(--spacing-unit) * 1.5);
+        background-color: rgba(0, 0, 0, 0.4); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+        color: white; padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
+        border-radius: calc(var(--border-radius) / 2); font-size: 0.8rem; font-weight: 500; z-index: 10;
+    }
+    .card .downloads { left: calc(var(--spacing-unit) * 1.5); }
+    .card .rating { right: calc(var(--spacing-unit) * 1.5); }
+    .card .rating .fa-star { color: #ffc107; }
+    .card .downloads i, .card .rating i { margin-right: calc(var(--spacing-unit) * 0.5); }
+
+    .card-actions {
+        display: flex; margin-top: auto; padding-top: calc(var(--spacing-unit) * 1.5);
+    }
+
     .install-btn {
-        background: var(--gradient-accent); /* Applied gradient */
-        color: white;  
+        background-image: var(--gradient-accent);
+        color: white; 
         padding: calc(var(--spacing-unit) * 1.25) calc(var(--spacing-unit) * 2);
-        border: none;  
-        border-radius: calc(var(--border-radius) / 1.5);  
+        border: none; border-radius: calc(var(--border-radius) / 1.5);  
         text-decoration: none;  
-        font-weight: 600;
-        display: inline-block;  
+        font-weight: 700;
+        text-transform: uppercase;
+        display: flex; align-items: center; justify-content: center;
+        flex: 1;
         transition: all var(--transition-speed-fast) ease;
     }
     .install-btn:hover {
         transform: scale(1.05);
         box-shadow: 0 4px 15px var(--color-shadow-focus);
-        filter: brightness(1.1); /* Brighter effect on hover */
+        filter: brightness(1.15);
     }
     .install-btn i { margin-right: var(--spacing-unit); }
 
-    footer { text-align: center; padding: calc(var(--spacing-unit) * 3); margin-top: calc(var(--spacing-unit) * 4); background-color: var(--color-surface); color: var(--color-text-secondary); font-size: 0.9rem; border-top: 1px solid var(--color-border);    width: 100%; 
-;    }
+    footer { text-align: center; padding: calc(var(--spacing-unit) * 3); margin-top: calc(var(--spacing-unit) * 4); background-color: var(--color-surface); color: var(--color-text-secondary); font-size: 0.9rem; border-top: 1px solid var(--color-border); width: 100%;}
 
     /* RESPONSIVE */
-    @media screen and (max-width: 768px) {
-        .nav-search-container { margin: 0 calc(var(--spacing-unit) * 2); }
-    }
+    @media screen and (max-width: 768px) { .nav-search-container { margin: 0 calc(var(--spacing-unit) * 2); } }
     @media screen and (max-width: 480px) {
         .logo-container .logo-text { display: none; }
         .featured-header h2 { font-size: 1.4rem; }
         .view-all-btn { font-size: 0.9rem; }
         .logo-icon { font-size: 28px; }
-        .settings-button { font-size: 1.3rem; }
     }
 </style>
 </head>
 <body>
+    
+    <div class="background-aurora">
+        <div class="aurora-shape shape1"></div>
+        <div class="aurora-shape shape2"></div>
+    </div>
 
     <nav class="main-nav" aria-label="Main Navigation">
         <div class="logo-container">
@@ -359,54 +338,115 @@
             <div id="searchResults" class="search-results-container"></div>
         </div>
         <button class="settings-button" id="theme-toggle" aria-label="Toggle theme">
-            <i id="theme-icon" class="fas fa-moon"></i>
+            <i id="theme-icon"></i>
         </button>
     </nav>
 
     <main id="mainContent">
         <div class="featured-header">
             <h2>Featured Games</h2>
-            <a href="#" class="view-all-btn">
+            <a href="#" class="view-all-btn" id="viewAllBtn">
                 View All <i class="fas fa-arrow-right"></i>
             </a>
         </div>
         <div class="grid" id="appsGrid">
+ 
+            <div class="card" data-name="Shadow Fight 2" data-category="Fighting">
+                <span class="downloads"><i class="fas fa-download"></i> 18.2M</span>
+                <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+                <img src="https://i.postimg.cc/wTKJPNsP/sf2.jpg" alt="Shadow Fight 2">
+                <h3>Shadow Fight 2</h3>
+                <p>Fighting • APK</p>
+                <p class="mod-desc">Unlimited gems & coins, all weapons unlocked</p>
+                <div class="card-actions">
+                    <a href="https://installchecker.com/cl/i/qk79qw" class="install-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
+            </div>
+    
+            <div class="card" data-name="Demon Slayer Mugen" data-category="Anime Fighting">
+                <span class="downloads"><i class="fas fa-download"></i> 315.7K</span>
+                <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+                <img src="https://i.postimg.cc/W44Jr6QD/maxresdefault-1.jpg" alt="Demon Slayer Mugen">
+                <h3>Demon Slayer Mugen</h3>
+                <p>Anime • MUGEN</p>
+                <p class="mod-desc">All Hashira and Upper Moons playable</p>
+                <div class="card-actions">
+                    <a href="https://installchecker.com/cl/i/1ong6e" class="install-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
+            </div>
+    
+            <div class="card" data-name="Dragon Ball Xenoverse 2" data-category="Anime RPG">
+                <span class="downloads"><i class="fas fa-download"></i> 2.1M</span>
+                <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                <img src="https://i.postimg.cc/rFnTs1CZ/R.jpg" alt="Dragon Ball Xenoverse 2">
+                <h3>DB Xenoverse 2</h3>
+                <p>RPG • APK</p>
+                <p class="mod-desc">All characters & transformations unlocked</p>
+                <div class="card-actions">
+                    <a href="https://installchecker.com/cl/i/6d6mpm" class="install-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
+            </div>
+    
+            <div class="card" data-name="Naruto Storm 4" data-category="Anime Fighting">
+                <span class="downloads"><i class="fas fa-download"></i> 3.5M</span>
+                <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+                <img src="https://i.postimg.cc/y6R3FNrT/naruto.avif" alt="Naruto Storm 4">
+                <h3>Naruto Storm 4</h3>
+                <p>Fighting • APK</p>
+                <p class="mod-desc">All DLC characters, max Ryo, all costumes</p>
+                <div class="card-actions">
+                    <a href="https://installchecker.com/cl/i/o6w98q" class="install-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
+            </div>
 
             <div class="card" data-name="Stick War Legacy" data-category="Strategy">
-                <img src="https://i.postimg.cc/x8DD2vJ4/stick.png" alt="Stick War 3" />
+                <span class="downloads"><i class="fas fa-download"></i> 1.2M</span>
+                <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                <img src="https://i.postimg.cc/c1FMbCcG/stick.png" alt="Stick War Legacy">
                 <h3>Stick War Legacy</h3>
-                <p>Strategy • MOD APK</p>
-                <p class="mod-desc">Unlimited gems, all units unlocked</p>
-                <a href="https://installchecker.com/cl/i/5k9o61" class="install-btn"><i class="fas fa-download"></i>Download</a>
+                <p>Strategy • APK</p>
+                <p class="mod-desc">Unlimited gems&coins, all units unlocked</p>
+                <div class="card-actions">
+                    <a href="https://installchecker.com/cl/i/5k9o61" class="install-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
             </div>
-            <div class="card" data-name="Last War: Survival" data-category="Zombies">
-                <img src="https://i.postimg.cc/C1ht40nT/last.png" alt="Last War Survival" />
-                <h3>Last War: Survival</h3>
-                <p>Zombies • MOD APK</p>
-                <p class="mod-desc">Unlimited ammo and health boosts</p>
-                <a href="https://installchecker.com/cl/i/g6pe9r" class="install-btn"><i class="fas fa-download"></i>Download</a>
+
+            <div class="card" data-name="CarX Street" data-category="Racing">
+                <span class="downloads"><i class="fas fa-download"></i> 55.7M</span>
+                <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                <img src="https://i.postimg.cc/mgB9ZGjy/carx.png" alt="CarX Street">
+                <h3>CarX Street</h3>
+                <p>Racing • APK </p>
+                <p class="mod-desc">Unlimited money, all cars & parts unlocked</p>
+                <div class="card-actions">
+                    <a href="https://installchecker.com/cl/i/r75gxd" class="install-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
             </div>
-            <div class="card" data-name="Roblox" data-category="Multiverse">
-                <img src="https://i.postimg.cc/Gt95ZjjX/roblox.jpg" alt="Roblox" />
-                <h3>Roblox</h3>
-                <p>Multiverse • MOD APK</p>
-                <p class="mod-desc">Access all games and premium items</p>
-                <a href="https://installchecker.com/cl/i/pod753" class="install-btn"><i class="fas fa-download"></i>Download</a>
-            </div>
+
             <div class="card" data-name="Minecraft" data-category="Sandbox">
-                <img src="https://i.postimg.cc/ZKGMMpvL/mc.png" alt="Minecraft" />
+                <span class="downloads"><i class="fas fa-download"></i> 22.1M</span>
+                <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+                <img src="https://i.postimg.cc/ZKGMMpvL/mc.png" alt="Minecraft">
                 <h3>Minecraft</h3>
-                <p>Sandbox • MOD APK</p>
+                <p>Sandbox • APK</p>
                 <p class="mod-desc">Unlimited resources and unlocked skins</p>
-                <a href="https://installchecker.com/cl/i/5kq1gw " class="install-btn"><i class="fas fa-download"></i>Download</a>
+                <div class="card-actions">
+                    <a href="https://installchecker.com/cl/i/5kq1gw" class="install-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
             </div>
-            <div class="card" data-name="Call of Duty: Warzone Mobile">
-              <img src="https://i.postimg.cc/VkXVQvjP/OIP.jpg" alt="Warzone Mobile" />
-              <h3>Call of Duty: Warzone</h3>
-              <p>FPS • Mobile MOD APK</p>
-              <p class="mod-desc">All skins, no ads, and enhanced mobility</p>
-              <a href="https://installchecker.com/cl/i/e6vdod" class="install-btn"><i class="fas fa-download"></i>Download</a>
+
+            <div class="card" data-name="Roblox" data-category="Sandbox">
+                <span class="downloads"><i class="fas fa-download"></i> 178.5M</span>
+                <span class="rating"><i class="fas fa-star"></i> 4.6</span>
+                <img src="https://i.postimg.cc/8czdCgNY/roblox.jpg" alt="Roblox">
+                <h3>Roblox</h3>
+                <p>Sandbox • APK</p>
+                <p class="mod-desc">Unlimited Robux, Mod Menu, Wallhack</p>
+                <div class="card-actions">
+                    <a href="https://installchecker.com/cl/i/pod753" class="install-btn"><i class="fas fa-download"></i> Download</a>
+                </div>
             </div>
+ 
         </div>
     </main>
 
@@ -415,51 +455,40 @@
     </footer>
 
     <script>
-        // --- THEME TOGGLE SCRIPT ---
+        // Scripts remain the same as they are fully functional.
         const themeToggleButton = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
-        
         const updateThemeIcon = (theme) => {
             const isDark = theme === 'dark';
             themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-            themeIcon.style.transform = isDark ? 'rotate(90deg)' : 'rotate(0deg)';
         };
-
         const setTheme = (theme) => {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
             updateThemeIcon(theme);
         };
-
         themeToggleButton.addEventListener('click', () => {
             const current = document.documentElement.getAttribute('data-theme');
             setTheme(current === 'dark' ? 'light' : 'dark');
         });
-
-        // Initialize theme based on preference or saved state
         const savedTheme = localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
-
-        // --- DYNAMIC SEARCH SCRIPT ---
         const searchContainer = document.getElementById("searchContainer");
         const searchInput = document.getElementById("searchInput");
         const searchClearBtn = document.getElementById("searchClearBtn");
         const searchResultsContainer = document.getElementById("searchResults");
         const allGameCards = document.querySelectorAll(".card");
+        const appsGrid = document.getElementById('appsGrid');
         let gameData = [];
-
-        // 1. Populate game data from existing HTML cards
         allGameCards.forEach(card => {
             gameData.push({
                 name: card.dataset.name,
                 category: card.dataset.category,
                 image: card.querySelector('img').src,
-                url: card.querySelector('.install-btn').href,
+                url: card.querySelector('.install-btn').href, 
             });
         });
-
-        // 2. Handle search input
         searchInput.addEventListener("input", (e) => {
             const query = e.target.value.toLowerCase();
             if (query.length > 0) {
@@ -472,52 +501,54 @@
                 hideSearchResults(); 
             }
         });
-
-        // 3. Display results in the dropdown
         function displaySearchResults(results) {
             if (results.length === 0) {
-                searchResultsContainer.innerHTML = `
-                    <div class="no-results-message">
-                        <i class="fas fa-frown"></i>
-                        <p>No games found.</p>
-                    </div>`;
+                searchResultsContainer.innerHTML = `<div class="no-results-message"><i class="fas fa-frown"></i><p>No games found.</p></div>`;
                 return;
             }
             searchResultsContainer.innerHTML = results.map(game => `
-                <a href="${game.url}" class="search-result-item">
+                <div class="search-result-item" data-name="${game.name}" style="cursor: pointer;">
                     <img src="${game.image}" alt="${game.name}">
-                    <div class="search-result-info">
-                        <h4>${game.name}</h4>
-                        <p>${game.category}</p>
-                    </div>
-                </a>
-            `).join('');
+                    <div class="search-result-info"><h4>${game.name}</h4><p>${game.category}</p></div>
+                </div>`).join('');
         }
-        
-        // 4. Hide the search results
-        function hideSearchResults() {
-            searchResultsContainer.classList.remove('active');
-        }
-
-        // 5. Handle clearing the search
+        function hideSearchResults() { searchResultsContainer.classList.remove('active'); }
         searchClearBtn.addEventListener('click', () => {
             searchInput.value = '';
             searchContainer.classList.remove('search-active');
             hideSearchResults();
         });
-
-        // 6. Handle focus to show results if there's text
         searchInput.addEventListener('focus', () => {
-             if (searchInput.value.length > 0) {
-                searchResultsContainer.classList.add('active');
-             }
+             if (searchInput.value.length > 0) { searchResultsContainer.classList.add('active'); }
         });
-        
-        // 7. Hide results when clicking outside
         document.addEventListener('click', function(event) {
-            if (!searchContainer.contains(event.target)) {
-                 hideSearchResults();
+            if (!searchContainer.contains(event.target)) { hideSearchResults(); }
+        });
+        const viewAllBtn = document.getElementById('viewAllBtn');
+        function showSelectedGame(gameName) {
+            allGameCards.forEach(card => {
+                if (card.dataset.name === gameName) { card.style.display = 'flex'; } 
+                else { card.style.display = 'none'; }
+            });
+            appsGrid.classList.add('grid-centered');
+        }
+        function showAllGames() {
+            allGameCards.forEach(card => { card.style.display = 'flex'; });
+            appsGrid.classList.remove('grid-centered');
+        }
+        searchResultsContainer.addEventListener('click', (e) => {
+            const resultItem = e.target.closest('.search-result-item');
+            if (resultItem) {
+                const gameName = resultItem.dataset.name;
+                showSelectedGame(gameName);
+                searchInput.value = '';
+                hideSearchResults();
+                searchContainer.classList.remove('search-active');
             }
+        });
+        viewAllBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showAllGames();
         });
     </script>
 </body>
