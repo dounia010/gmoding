@@ -25,7 +25,7 @@
             font-family: var(--font-main);
             background-color: var(--color-background);
             background-image: linear-gradient(
-                    rgba(13, 17, 23, 0.9),
+                    rgba(13, 17, 23, 0.95),
                     rgba(13, 17, 23, 1)
                 ),
                 url('https://i.imgur.com/HeBxnlZ.jpg');
@@ -43,11 +43,11 @@
         }
         .content-card {
             width: 100%;
-            max-width: 1100px;
+            max-width: 900px;
             background-color: var(--color-card);
             border: 1px solid var(--color-border);
             border-radius: 16px;
-            padding: 20px 30px 40px;
+            padding: 30px 40px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             animation: fadeIn 0.8s ease-out forwards;
         }
@@ -58,79 +58,74 @@
             border: 1px solid var(--color-border);
         }
         h1 {
-            font-size: 38px;
+            font-size: 36px;
             font-weight: 700;
             color: var(--color-heading);
-            margin: 0 10px 15px;
+            margin: 0 0 15px;
             text-shadow: 0 0 8px rgba(0, 225, 255, 0.3);
         }
         p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 20px auto;
+            font-size: 17px;
+            max-width: 650px;
+            margin: 0 auto 25px;
             line-height: 1.7;
         }
-        .download-btn {
-            background-color: transparent;
-            border: 2px solid var(--color-accent);
-            color: var(--color-accent);
+        .file-details {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            background-color: #0d1117;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 15px;
+            max-width: 500px;
+            margin: 25px auto;
+            text-align: center;
+        }
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .detail-item span:first-child {
+            font-size: 13px;
+            color: var(--color-text);
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+        .detail-item span:last-child {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--color-heading);
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            color: var(--color-card);
+            background-color: var(--color-accent);
             padding: 14px 40px;
             border-radius: 8px;
             font-size: 18px;
             font-weight: bold;
             text-decoration: none;
-            box-shadow: none;
-            transition: background-color 0.2s ease, color 0.2s ease;
-            display: inline-block;
-            margin-top: 25px;
-            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid var(--color-accent);
         }
-        .download-btn:hover {
-            background-color: var(--color-accent);
-            color: var(--color-card);
-            transform: none;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(0, 225, 255, 0.2);
         }
-        .password-box {
-            margin-top: 30px;
-            cursor: pointer;
-            position: relative;
-        }
-        .password-label {
-            font-size: 14px;
-            color: var(--color-text);
-            margin-bottom: 8px;
-        }
-        .password-field {
-            display: inline-block;
-            font-family: 'Courier New', Courier, monospace;
+        .btn-secondary {
             color: var(--color-accent);
-            background-color: #0d1117;
-            padding: 12px 25px;
-            border: 1px dashed var(--color-border);
-            border-radius: 8px;
-            transition: border-color 0.2s ease;
-        }
-        .password-box:hover .password-field {
-            border-color: var(--color-accent);
-        }
-        .copy-tooltip {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 10px;
-            background-color: #28a745;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 6px;
-            font-size: 14px;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .password-box.copied .copy-tooltip {
-            opacity: 1;
-            visibility: visible;
+            background-color: transparent;
         }
         footer {
             margin-top: 40px;
@@ -139,23 +134,14 @@
             opacity: 0.8;
         }
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @media screen and (max-width: 768px) {
-            h1 {
-                font-size: 28px;
-            }
-            p {
-                font-size: 16px;
-            }
-            .content-card {
-                padding: 20px;
-            }
+            h1 { font-size: 28px; }
+            p { font-size: 16px; }
+            .content-card { padding: 20px; }
+            .file-details { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
@@ -166,58 +152,45 @@
             src="https://i.postimg.cc/kGYcknSH/1749517214065360-0.png"
             alt="Naruto Ninja Storm 4 PPSSPP"
         />
-        <h1>
-          Naruto Shippuden: Ultimate Ninja Storm 4</h1>
+        <h1>Naruto Shippuden: Ultimate Ninja Storm 4</h1>
         <p>
             Download Naruto Ninja Storm 4 for PPSSPP now and fight your favorite
-            ninja offline — no WiFi needed.<br /><br />
-            💡 Want to learn how to set it up and play on your Android device? Watch
-            our tutorial below and get started in minutes!
+            ninja offline. No password required.
         </p>
-        <a
-            class="download-btn"
-            href="https://www.mediafire.com/file/bs7yhlmmj72d05c/NARUTO_NINJA_STORM_4_PPSSPP.7z/file"
-            target="_blank"
-            >⬇ Download Now</a
-        >
 
-        <div class="password-box" id="passwordBox" onclick="copyPassword()">
-            <div class="copy-tooltip" id="copyTooltip">Copied!</div>
-            <div class="password-label">
-                Use this password to extract the .zip file
+        <div class="file-details">
+            <div class="detail-item">
+                <span>File Size</span>
+                <span>1.37 GB</span>
             </div>
-            <div class="password-field" id="passwordText">PINOYHACKSOFFICIAL</div>
+            <div class="detail-item">
+                <span>Format</span>
+                <span>.zip (PPSSPP)</span>
+            </div>
+            <div class="detail-item">
+                <span>Version</span>
+                <span>Latest</span>
+            </div>
         </div>
 
-        <p style="margin-top: 30px; font-size: 16px;">
-            ▶️ <a
-                href="https://youtu.be/7vjbGhccLeE?si=Wd5mHX48CoJQfYM2"
+        <div class="cta-buttons">
+            <a
+                class="btn"
+                href="https://www.mediafire.com/file/c1zwdii0b39ozls/NARUTO%20ULTIMATE%20NINJA%20STROM%204%20MOD%20BY%20TABBO.zip/file"
                 target="_blank"
-                style="color: var(--color-accent); text-decoration: underline;"
-                >Watch the tutorial</a
-            > to learn how to download, unzip, and play Naruto Ninja Storm 4 on PPSSPP
-            Android emulator.
-        </p>
+                >⬇ Download Now</a
+            >
+            <a
+                class="btn btn-secondary"
+                href="https://youtu.be/fNRmVr5O3Xs?si=BixdqoRBHlH7JvEv&t=162"
+                target="_blank"
+                >▶️ Watch Tutorial</a
+            >
+        </div>
 
         <footer>
-            ❤️ Thanks for downloading! <strong>Follow us for more epic anime mods</strong><br />
-            🎮 New mods and games drop every week — bookmark this page!
+            ❤️ Thanks for downloading! Follow us for more epic anime mods.
         </footer>
     </main>
-
-    <script>
-        function copyPassword() {
-            const passwordText = document.getElementById('passwordText').innerText;
-            navigator.clipboard.writeText(passwordText).then(() => {
-                const passwordBox = document.getElementById('passwordBox');
-                passwordBox.classList.add('copied');
-                setTimeout(() => {
-                    passwordBox.classList.remove('copied');
-                }, 2000);
-            }).catch((err) => {
-                console.error('Failed to copy password: ', err);
-            });
-        }
-    </script>
 </body>
 </html>
