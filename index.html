@@ -22,16 +22,16 @@
         --color-nav-bg: rgba(255, 255, 255, 0.65);
         --color-search-bg: #eef2f9;
         --color-text-primary: #1a202c;
-        --color-text-secondary: #5A677B; 
+        --color-text-secondary: #5A677B;
         --color-border: #e2e8f0;
-        
+
         /* -- Vivid Colors & Gradient -- */
         --gradient-accent: linear-gradient(135deg, #3672F8, #A336F8);
         --color-accent-primary: #3672F8;
         --color-accent-primary-darker: #2f61d1;
         --color-shadow: rgba(45, 55, 72, 0.1);
         --color-shadow-focus: rgba(54, 114, 248, 0.4);
-        
+
         /* -- Fonts -- */
         --font-primary: 'Inter', sans-serif;
         --font-title: 'Orbitron', sans-serif;
@@ -50,7 +50,7 @@
         --color-text-secondary: #94a3b8;
         --color-border: #4a5568;
         --color-shadow: rgba(0, 0, 0, 0.25);
-        --color-shadow-focus: rgba(54, 114, 248, 0.3); 
+        --color-shadow-focus: rgba(54, 114, 248, 0.3);
     }
 
     *, *::before, *::after {
@@ -505,50 +505,81 @@
     }
 }
     /* RESPONSIVE */
-    @media screen and (max-width: 768px) { .nav-search-container { margin: 0 calc(var(--spacing-unit) * 2); } }
-    @media screen and (max-width: 480px) {
-        .logo-container .logo-text { display: none; }
-        .featured-header h2 { font-size: 1.4rem; }
-        .view-all-btn { font-size: 0.9rem; }
-        .logo-icon { font-size: 28px; }
+    @media screen and (max-width: 768px) {
+      .nav-search-container {
+        margin: 0 calc(var(--spacing-unit) * 2);
+      }
     }
+
+    @media screen and (max-width: 600px) {
+        .logo-container .logo-text {
+            display: none;
+        }
+
+        .featured-header h2 {
+            font-size: 1.4rem;
+        }
+
+        .view-all-btn {
+            font-size: 0.9rem;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+        }
+
+        .grid {
+            grid-template-columns: 1fr;
+            gap: calc(var(--spacing-unit) * 2);
+            padding: calc(var(--spacing-unit) * 2);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+        }
+
+        .card p {
+            font-size: 0.85rem;
+        }
+    }
+    
     /* ============================================= */
-/* == MODAL MOBILE RESPONSIVENESS             == */
-/* ============================================= */
-@media screen and (max-width: 500px) {
-    .modal-content {
-        /* Reduce padding on smaller screens */
-        padding: calc(var(--spacing-unit) * 3);
-    }
+    /* == MODAL MOBILE RESPONSIVENESS           == */
+    /* ============================================= */
+    @media screen and (max-width: 500px) {
+        .modal-content {
+            /* Reduce padding on smaller screens */
+            padding: calc(var(--spacing-unit) * 3);
+        }
 
-    .modal-icon {
-        font-size: 2.5rem; /* Make the main icon smaller */
-        margin-bottom: calc(var(--spacing-unit) * 1.5);
-    }
+        .modal-icon {
+            font-size: 2.5rem; /* Make the main icon smaller */
+            margin-bottom: calc(var(--spacing-unit) * 1.5);
+        }
 
-    .modal-content h2 {
-        font-size: 1.5rem; /* Make the title smaller */
-    }
+        .modal-content h2 {
+            font-size: 1.5rem; /* Make the title smaller */
+        }
 
-    .modal-subtitle {
-        font-size: 0.9rem; /* Make the subtitle smaller */
-        line-height: 1.5;
-    }
-    
-    .modal-game-display {
-        margin-bottom: calc(var(--spacing-unit) * 2);
-    }
+        .modal-subtitle {
+            font-size: 0.9rem; /* Make the subtitle smaller */
+            line-height: 1.5;
+        }
+        
+        .modal-game-display {
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
 
-    .verification-steps {
-        font-size: 0.85rem; /* Make the step text smaller */
-        margin-bottom: calc(var(--spacing-unit) * 3);
-        text-align: left;
+        .verification-steps {
+            font-size: 0.85rem; /* Make the step text smaller */
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            text-align: left;
+        }
+        
+        .verification-steps li {
+            gap: var(--spacing-unit);
+        }
     }
-    
-    .verification-steps li {
-        gap: var(--spacing-unit);
-    }
-}
 </style>
 </head>
 <body>
@@ -653,6 +684,22 @@
                     <a href="https://verifyuser.org/cl/i/r75gxd" class="btn btn-primary install-btn"><i class="fas fa-download"></i> Download</a>
                 </div>
             </div>
+
+            <div class="card" data-name="Spike Cross" data-category="Sports">
+                <span class="downloads"><i class="fas fa-download"></i> 1.2M</span>
+                <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                <img src="https://i.postimg.cc/8cnr4DCm/Screenshot-2025-07-07-193157.png" alt="Spike Cross">
+                <h3>Spike Cross</h3>
+                <p>Sports • APK</p>
+                <p class="mod-desc">All characters unlocked and unlimited coins</p>
+                <div class="card-actions">
+                    <a href="https://verifyuser.org/cl/i/o6w27d
+                    " class="btn btn-primary install-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </div>
+            </div>
+            
 
             <div class="card" data-name="Minecraft" data-category="Sandbox">
                 <span class="downloads"><i class="fas fa-download"></i> 22.1M</span>
@@ -864,7 +911,7 @@ const socialProofContainer = document.getElementById('social-proof-container');
 // A list of games and countries to randomize
 const proofGames = [
     "Shadow Fight 2", "Demon Slayer", "DB Xenoverse 2", "Naruto Storm 4",
-    "Stick War Legacy", "CarX Street", "Minecraft", "Roblox"
+    "Stick War Legacy", "CarX Street", "Minecraft", "Roblox", "Spike Cross"
 ];
 const proofCountries = [
     "United States", "Germany", "France", "Canada", "Brazil", "United Kingdom",
