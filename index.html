@@ -202,29 +202,67 @@
         transform: rotate(15deg);
     }
     
-    /* FEATURED HEADER */
-    .featured-header {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 3);
-        margin: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 2);
-        border-left: 5px solid var(--color-accent-primary);
-        background: linear-gradient(90deg, var(--color-surface) 0%, var(--color-search-bg) 100%);
-        border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    /* ============================================= */
+    /* == NEW HERO SECTION STYLES                  == */
+    /* ============================================= */
+    .hero-section {
+        text-align: center;
+        padding: calc(var(--spacing-unit) * 10) calc(var(--spacing-unit) * 3);
+        margin: 0 auto;
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
-    .featured-header h2 {
-        font-family: var(--font-title);
-        font-size: 1.8rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-    }
-    .view-all-btn {
-        background: none; color: var(--color-accent-primary); text-decoration: none; font-weight: 600;
-        display: flex; align-items: center; gap: var(--spacing-unit); transition: color var(--transition-speed) ease;
-    }
-    .view-all-btn:hover { color: var(--color-accent-primary-darker); }
-    .view-all-btn i { transition: transform var(--transition-speed-fast) ease; }
-    .view-all-btn:hover i { transform: translateX(4px); }
 
+    .hero-title {
+        font-family: var(--font-title);
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: calc(var(--spacing-unit) * 2);
+        line-height: 1.2;
+    }
+
+    .animated-gradient-text {
+        background-image: var(--gradient-accent);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient-animation 4s ease infinite;
+    }
+
+    @keyframes gradient-animation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--color-text-secondary);
+        margin-bottom: calc(var(--spacing-unit) * 4);
+        max-width: 600px;
+    }
+
+    .hero-cta-button {
+        font-size: 1.1rem;
+        padding: calc(var(--spacing-unit) * 1.75) calc(var(--spacing-unit) * 4);
+        border-radius: 50px;
+    }
+
+    /* REVEAL ON SCROLL ANIMATION */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
     /* CARDS GRID */
     .grid {
         display: grid;
@@ -284,8 +322,8 @@
     .btn {
         color: white; 
         padding: calc(var(--spacing-unit) * 1.25) calc(var(--spacing-unit) * 2);
-        border: none; border-radius: calc(var(--border-radius) / 1.5);  
-        text-decoration: none;  
+        border: none; border-radius: calc(var(--border-radius) / 1.5);     
+        text-decoration: none;     
         font-weight: 700;
         text-transform: uppercase;
         display: inline-flex; align-items: center; justify-content: center;
@@ -314,7 +352,6 @@
     .install-btn {
         flex: 1;
     }
-    /* ADD THIS CSS FOR THE NEW BUTTON STATES */
     .install-btn--loading {
         background: var(--color-search-bg) !important;
         color: var(--color-text-primary) !important;
@@ -345,7 +382,7 @@
         width: 100%;
     }
 /* ============================================= */
-/* == NEW: REDIRECT WARNING MODAL STYLES      == */
+/* == NEW: REDIRECT WARNING MODAL STYLES       == */
 /* ============================================= */
 .redirect-modal {
     position: fixed;
@@ -456,7 +493,7 @@
 }
 
 /* ============================================= */
-/* == SOCIAL PROOF NOTIFICATION STYLES        == */
+/* == SOCIAL PROOF NOTIFICATION STYLES         == */
 /* ============================================= */
 #social-proof-container {
     position: fixed;
@@ -506,22 +543,20 @@
 }
     /* RESPONSIVE */
     @media screen and (max-width: 768px) {
-      .nav-search-container {
-        margin: 0 calc(var(--spacing-unit) * 2);
-      }
+        .nav-search-container {
+            margin: 0 calc(var(--spacing-unit) * 2);
+        }
+        .hero-title {
+            font-size: 2.8rem;
+        }
+        .hero-subtitle {
+            font-size: 1.1rem;
+        }
     }
 
     @media screen and (max-width: 600px) {
         .logo-container .logo-text {
             display: none;
-        }
-
-        .featured-header h2 {
-            font-size: 1.4rem;
-        }
-
-        .view-all-btn {
-            font-size: 0.9rem;
         }
 
         .logo-icon {
@@ -542,27 +577,38 @@
             font-size: 0.85rem;
         }
     }
+
+    @media screen and (max-width: 480px) {
+        .hero-title {
+            font-size: 2.2rem;
+        }
+        .hero-subtitle {
+            font-size: 1rem;
+        }
+        .hero-section {
+            padding: calc(var(--spacing-unit) * 8) calc(var(--spacing-unit) * 2);
+        }
+    }
     
     /* ============================================= */
     /* == MODAL MOBILE RESPONSIVENESS           == */
     /* ============================================= */
     @media screen and (max-width: 500px) {
         .modal-content {
-            /* Reduce padding on smaller screens */
             padding: calc(var(--spacing-unit) * 3);
         }
 
         .modal-icon {
-            font-size: 2.5rem; /* Make the main icon smaller */
+            font-size: 2.5rem;
             margin-bottom: calc(var(--spacing-unit) * 1.5);
         }
 
         .modal-content h2 {
-            font-size: 1.5rem; /* Make the title smaller */
+            font-size: 1.5rem;
         }
 
         .modal-subtitle {
-            font-size: 0.9rem; /* Make the subtitle smaller */
+            font-size: 0.9rem;
             line-height: 1.5;
         }
         
@@ -571,7 +617,7 @@
         }
 
         .verification-steps {
-            font-size: 0.85rem; /* Make the step text smaller */
+            font-size: 0.85rem;
             margin-bottom: calc(var(--spacing-unit) * 3);
             text-align: left;
         }
@@ -605,12 +651,14 @@
     </nav>
 
     <main id="mainContent">
-        <div class="featured-header">
-            <h2>Featured Games</h2>
-            <a href="#" class="view-all-btn" id="viewAllBtn">
-                View All <i class="fas fa-arrow-right"></i>
+        
+        <section class="hero-section">
+            <h1 class="hero-title reveal animated-gradient-text">Unlock Your Game's Potential</h1>
+            <p class="hero-subtitle reveal" style="transition-delay: 0.1s;">Discover thousands of mods to customize your favorite games. Safe, fast, and easy to install.</p>
+            <a href="#appsGrid" class="btn btn-primary hero-cta-button reveal" style="transition-delay: 0.2s;">
+                <i class="fas fa-dice-d20"></i> Browse Mods
             </a>
-        </div>
+        </section>
         
         <div class="grid" id="appsGrid">
             <div class="card" data-name="Shadow Fight 2" data-category="Fighting">
@@ -693,14 +741,12 @@
                 <p>Sports • APK</p>
                 <p class="mod-desc">All characters unlocked and unlimited coins</p>
                 <div class="card-actions">
-                    <a href="https://verifyuser.org/cl/i/o6w27d
-                    " class="btn btn-primary install-btn" target="_blank" rel="noopener noreferrer">
+                    <a href="https://verifyuser.org/cl/i/o6w27d" class="btn btn-primary install-btn" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-download"></i> Download
                     </a>
                 </div>
             </div>
             
-
             <div class="card" data-name="Minecraft" data-category="Sandbox">
                 <span class="downloads"><i class="fas fa-download"></i> 22.1M</span>
                 <span class="rating"><i class="fas fa-star"></i> 4.9</span>
@@ -803,7 +849,7 @@ searchInput.addEventListener("input", (e) => {
             searchContainer.classList.remove('search-active');
             hideSearchResults();
         }
-    }, 250); // Wait for 250ms after user stops typing
+    }, 250);
 });
 function displaySearchResults(results) {
     if (results.length === 0) {
@@ -853,10 +899,21 @@ searchResultsContainer.addEventListener('click', (e) => {
         searchContainer.classList.remove('search-active');
     }
 });
-document.getElementById('viewAllBtn').addEventListener('click', (e) => {
-    e.preventDefault();
-    showAllGames();
+
+// ================================================
+// == REVEAL ON SCROLL SCRIPT                    ==
+// ================================================
+const revealElements = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, {
+    threshold: 0.1
 });
+revealElements.forEach(el => observer.observe(el));
 
 // ================================================
 // == HUMAN VERIFICATION MODAL SCRIPT            ==
@@ -867,21 +924,17 @@ const cancelRedirectBtn = document.getElementById('cancel-redirect-btn');
 const redirectLink = document.getElementById('redirect-link');
 
 function showRedirectModal(gameName, url) {
-    // 1. Populate modal with the game name and the offer URL
     modalGameName.textContent = gameName;
     redirectLink.href = url;
-
-    // 2. Show the modal
     redirectModal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    document.body.style.overflow = 'hidden';
 }
 
 function closeRedirectModal() {
     redirectModal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = ''; // Restore scrolling
+    document.body.style.overflow = '';
 }
 
-// Attach event listener to all download buttons
 document.querySelectorAll('.install-btn').forEach(button => {
     button.addEventListener('click', function(e) {
         e.preventDefault();
@@ -893,22 +946,18 @@ document.querySelectorAll('.install-btn').forEach(button => {
     });
 });
 
-// Attach event listener to the cancel button in the modal
 cancelRedirectBtn.addEventListener('click', closeRedirectModal);
 
-// Optional: Allow closing the modal by clicking the background
 redirectModal.addEventListener('click', (e) => {
-    // We check if the click is on the modal backdrop itself, not on its children
     if (e.target === redirectModal) {
         closeRedirectModal();
     }
 });
 // ================================================
-// == SOCIAL PROOF NOTIFICATION SCRIPT         ==
+// == SOCIAL PROOF NOTIFICATION SCRIPT           ==
 // ================================================
 const socialProofContainer = document.getElementById('social-proof-container');
 
-// A list of games and countries to randomize
 const proofGames = [
     "Shadow Fight 2", "Demon Slayer", "DB Xenoverse 2", "Naruto Storm 4",
     "Stick War Legacy", "CarX Street", "Minecraft", "Roblox", "Spike Cross"
@@ -919,19 +968,12 @@ const proofCountries = [
 ];
 
 function showSocialProof() {
-    // Pick random data
     const randomGame = proofGames[Math.floor(Math.random() * proofGames.length)];
     const randomCountry = proofCountries[Math.floor(Math.random() * proofCountries.length)];
-
-    // Create the toast element
     const toast = document.createElement('div');
     toast.className = 'social-proof-toast';
     toast.innerHTML = `<i class="fas fa-check-circle"></i> <p>Someone from <strong>${randomCountry}</strong> just unlocked ${randomGame}!</p>`;
-
-    // Add it to the container
     socialProofContainer.appendChild(toast);
-
-    // Remove the toast after the animation finishes (5 seconds)
     setTimeout(() => {
         toast.remove();
     }, 5000);
